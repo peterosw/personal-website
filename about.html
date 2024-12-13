@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Pete Oswald's site</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.5;
+            max-width: 40em;
+            margin: 0 auto;
+            padding: 2em 1em;
+        }
+        h1 {
+            font-size: 1.2em;
+            margin: 2em 0 1em 0;
+        }
+        input[type="text"] {
+            width: 100%;
+            font-size: 1.2em;
+            padding: 0.5em;
+            margin: 1em 0;
+            border: 1px solid #ccc;
+        }
+        #results {
+            margin-top: 2em;
+        }
+        .result {
+            margin-bottom: 2em;
+        }
+        .result a {
+            color: #00a;
+            text-decoration: none;
+        }
+        .result a:hover {
+            text-decoration: underline;
+        }
+        nav {
+            margin-bottom: 2em;
+        }
+        nav a {
+            color: #00a;
+            text-decoration: none;
+            margin-right: 1em;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <h1>Search Pete Oswald's site:</h1>
+    <input type="text" id="search" placeholder="Type to search..." autofocus>
+    <div id="results"></div>
+
+    <script>
+        // Simple search functionality
+        const searchInput = document.getElementById('search');
+        const resultsDiv = document.getElementById('results');
+        
+        // You would need to replace this with your actual content/pages
+        const pages = [
+            { url: 'index.html', title: 'Home', content: 'Welcome to Pete Oswald\'s website.' },
+            { url: 'about.html', title: 'About', content: 'Information about Pete Oswald.' },
+            { url: 'contact.html', title: 'Contact', content: 'Get in touch with Pete Oswald.' },
+            { url: 'blog/index.html', title: 'Blog', content: 'Pete Oswald\'s blog posts' },
+            { url: 'blog/2024-12-11-test.html', title: 'Test', content: 'test test test test' }
+        ];
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            resultsDiv.innerHTML = '';
+            
+            if (query.length < 2) return;
+
+            const results = pages.filter(page => 
+                page.title.toLowerCase().includes(query) || 
+                page.content.toLowerCase().includes(query)
+            );
+
+            results.forEach(result => {
+                const div = document.createElement('div');
+                div.className = 'result';
+                div.innerHTML = `<a href="${result.url}">${result.title}</a><br>${result.content}`;
+                resultsDiv.appendChild(div);
+            });
+        });
+    </script>
+</body>
+</html>
